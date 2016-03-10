@@ -1,0 +1,94 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fnil\fcharset0 Consolas;}
+{\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red234\green234\blue234;\red38\green38\blue38;
+\red245\green245\blue245;\red148\green6\blue75;\red19\green36\blue126;\red83\green85\blue2;\red0\green0\blue0;
+\red16\green121\blue2;\red52\green52\blue52;\red38\green38\blue38;\red245\green245\blue245;\red148\green6\blue75;
+\red19\green36\blue126;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 curl http://localhost:9200/index/type/_search?pretty=true -d '\
+\{ \
+    "query" : \{ \
+        "match_all" : \{\} \
+    \},\
+    "fields": [\'93id\'94]\
+\}\
+'\
+\
+\
+\pard\pardeftab720\sl380
+
+\fs28 \cf4 \cb5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 es-export-bulk --url http://localhost:9200/twitter --file \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 ~\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 /data.json --body \cf7 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec7 '\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\sl380
+\cf7 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec7 \{"query":\{"range":\{"timestamp":\{"gte":"2015-11-15T18:00:00.000Z","lte":"2015-11-15T19:00:00.000Z"\}\}\}\}\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+\cf7 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec7 '\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf4 curl -XGET 'http://localhost:9200/_search\
+\pard\pardeftab720\sl432
+\cf8 \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 \{\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9 \
+    \cf10 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec10 \'93tweet\'94\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf8 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 :\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf8 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 \{\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf10 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec10 \'93text\'94\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf8 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 :\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf10 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec10 \'93beirut\'94\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf8 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 \}\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9  \cf11 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec11 \cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9 \
+\cf8 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 \}\
+\
+\
+\pard\pardeftab720\sl380
+\cf12 \cb13 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 es-export-bulk --url http://localhost:9200/_search --file \cf14 \expnd0\expndtw0\kerning0
+~\cf12 \expnd0\expndtw0\kerning0
+/data.json --body \cf15 \expnd0\expndtw0\kerning0
+'\cf12 \expnd0\expndtw0\kerning0
+\
+\cf15 \expnd0\expndtw0\kerning0
+\{"query\'94:\{\'93filter\'94:\{\'93text\'94 : \'93beirut\'94 \}\}\}\cf12 \expnd0\expndtw0\kerning0
+\
+\cf15 \expnd0\expndtw0\kerning0
+'\
+\
+curl XGET \'91\cf12 \cb13 \expnd0\expndtw0\kerning0
+http://localhost:9200/_search' \cf8 \cb1 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec8 -\cf9 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9 d \cf15 \cb13 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+\pard\pardeftab720\sl380
+\cf15 \cb13 \expnd0\expndtw0\kerning0
+'\cf12 \expnd0\expndtw0\kerning0
+\
+\cf15 \expnd0\expndtw0\kerning0
+\{\'93query\'94:\{\'93filter\'94:\{\'93text\'94 : \'93beirut\'94 \}\}\}\cf12 \expnd0\expndtw0\kerning0
+\
+\cf15 \expnd0\expndtw0\kerning0
+'\cf15 \cb13 \expnd0\expndtw0\kerning0
+\
+}

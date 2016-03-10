@@ -1,0 +1,78 @@
+import gzip
+import json
+from elasticsearch import Elasticsearch
+from elasticsearch import helpers
+import elasticsearch.client
+import StringIO
+import os
+import codecs
+import unicodecsv
+from boto.s3.connection import S3Connection
+import argparse
+import logging
+import datetime
+import hashlib
+
+log = logging.getLogger("tweet2elasticsearch")
+es = Elasticsearch()
+
+
+def construct_query(text=None, date_from=None, date_to=None, user_mentions=None, hashtags=None, users=None):
+    """
+    Constructs a query from the provided arguments.
+
+    All arguments are ANDed. When multiple values are provided for user_mentions
+    and hashtags, they are ORed.
+    """
+    q = {
+        "filter": {
+            "bool": {
+                "must": []
+            }
+        }
+    }
+    if text:
+        q["query"] = {
+            "match": {
+                "text": text
+            }
+        }
+    if user_mentions:
+        q["filter"]["bool"]["must"].append({
+            "terms": {
+                "user_mentions": user_mentions
+            }
+        })
+
+    if hashtags:
+        q["filter"]["bool"]["must"].append({
+            "terms": {
+                "hashtags": hashtags
+            }
+        })
+
+    if users:
+        q["filter"]["bool"]["must"].append({
+            "terms": {
+                "screen_name": users
+            }
+        })
+
+    if date_from or date_to:
+        ca = {
+            "range": {
+                "created_at": {}
+            }
+        }
+        if date_from:
+            ca["range"]["created_at"]["gte"] = date_from
+        if date_to:
+            ca["range"]["created_at"]["lte"] = date_to
+
+        q["filter"]["bool"]["must"].append(ca)
+
+    return {
+        "query": {
+            "filtered": q
+        }
+    }
